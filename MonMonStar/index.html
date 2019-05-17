@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>無標題文件</title>
+    <link rel="stylesheet" href="themes/thema.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link href="design.css" rel="stylesheet" type="text/css">
+</head>
+
+<script>
+	function resetLocalStorage(){
+		localStorage.exp = 0;
+		localStorage.level = 0;
+		localStorage.hungry = 80;
+		localStorage.water = 80;
+		localStorage.happy = 80;
+		localStorage.demand = false;
+		localStorage.wanted = "";
+		
+		alert("重置成功！");
+	}
+    function login(){
+	
+        var myID = $('#idInput').val();
+        var myPWD = $('#passwordInput').val();
+        var sendData = {
+            'ID': myID,
+            'pwd': myPWD
+        };
+
+        localStorage.Login = -1;
+        localStorage.VIP = -1;
+
+        if (myID == "teacher") { localStorage.VIP = 1; } 
+		else { localStorage.VIP = 0; }
+
+        $.ajax({
+            url: "http://192.192.155.100/login/login/WebService1.asmx/login_A",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(sendData),
+            type: "POST",
+            async: false,
+            success: function AjaxSuccess(data) {
+                localStorage.Login = data.d;
+                if (localStorage.Login == 1) {
+                    location.href = "main.html";
+                } else {
+                    alert("輸入錯誤，請重新輸入！")
+                    location.reload();
+                }
+            },
+            error: function AjaxError(xhr) {
+                alert("error:連線有問題喔");
+            }
+        });
+    }
+</script>
+
+<body>
+    <div data-role="page" id="LoginPage" style="background:url(img/Grass.png) center center fixed no-repeat; background-size: cover;">
+        <div data-role="content" align="center">
+            <br><br>
+            <div>
+                <img src="img/title.png" alt="我的標題" id="titleImg">
+            </div>
+            <br>
+            <div data-role="fieldcontain">
+                <label for="textinput" style="color:white; text-shadow:none;">ID：</label>
+                <input type="text" id="idInput" />
+            </div>
+            <br>
+            <div data-role="fieldcontain">
+                <label for="passwordinput" style="color:white; text-shadow:none;">Password：</label>
+                <input type="password" id="passwordInput" />
+            </div>
+            <br>
+            <a href="#" data-role="button" id="loginButton" style="width:100px" onClick="login()">Log-In</a>
+            <button id="resetButton" onClick="resetLocalStorage()" >Reset</button>
+        </div>
+    </div>
+</body>
+
+</html>

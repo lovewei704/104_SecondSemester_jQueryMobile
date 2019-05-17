@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+    <title>主要介面</title>
+    <link rel="stylesheet" href="themes/theme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>
+	
+    <link href="design.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="jquery.progress.js"></script>
+
+</head>
+
+<body style="position:relative; margin: 0 auto;">
+    <div data-add-back-btn="true" data-role="page" id="mainPage" style="background:url(img/Grass.png) center center fixed no-repeat; background-size: cover;">
+        <!-- 主選單 -->
+        <div data-role="panel" id="menuPanel" class="allPanel" data-position="right" data-display="overlay" data-dismissible="false" style="background:rgba(255,255,255,0.70)">
+            <a href="#foodPanel"><img src="img/fork.png" alt="食物" id="eatImg"></a>
+            <img src="img/water.png" alt="喝水" id="drinkImg">
+            <a href="#sportPanel"><img src="img/dumbbell.png" alt="運動" id="sportImg"></a>
+            <a href="#curePanel"><img src="img/health.png" alt="醫療" id="cureImg"></a>
+            <a onClick="visSetting()" data-rel="close"><img src="img/setting.png" alt="設定" id="settingImg"></a>
+            <div>
+                <a data-rel="close"><img src="img/close.png" alt="關閉" id="closeImg" onClick="visArror()"></a>
+            </div>
+        </div>
+        <!-- 食物選單 -->
+        <div data-role="panel" id="foodPanel" class="allPanel" data-position="right" data-display="overlay" data-dismissible="false" style="background:rgba(255,255,255,0.70)">
+            <img src="img/meat.png" alt="雞腿" id="foodImg1">
+            <img src="img/cake.png" alt="蛋糕" id="foodImg2">
+            <img src="img/cheese.png" alt="起司" id="foodImg3">
+            <img src="img/lollipop.png" alt="棒棒糖" id="foodImg4">
+            <div>
+                <a href="#menuPanel"><img src="img/arrorR.png" alt="返回" class="arrorRImg"></a>
+            </div>
+        </div>
+        <!-- 運動選單 -->
+        <div data-role="panel" id="sportPanel" class="allPanel" data-position="right" data-display="overlay" data-dismissible="false" style="background:rgba(255,255,255,0.70)">
+            <img src="img/basketball.png" alt="籃球" id="sportImg1">
+            <img src="img/run.png" alt="跑步" id="sportImg2">
+            <img src="img/bicycle.png" alt="腳踏車" id="sportImg3">
+            <div>
+                <a href="#menuPanel"><img src="img/arrorR.png" alt="返回" class="arrorRImg"></a>
+            </div>
+        </div>
+        <!-- 藥物選單 -->
+        <div data-role="panel" id="curePanel" class="allPanel" data-position="right" data-display="overlay" data-dismissible="false" style="background:rgba(255,255,255,0.70)">
+            <img src="img/bandaid.png" alt="繃帶" id="cureImg1">
+            <img src="img/medicine.png" alt="藥丸" id="cureImg2">
+            <img src="img/needle.png" alt="針筒" id="cureImg3">
+            <div>
+                <a href="#menuPanel"><img src="img/arrorR.png" alt="返回" class="arrorRImg"></a>
+            </div>
+        </div>
+        <!-- 設定清單 -->
+        <div id="settingBackDiv" onselectstart="return false"></div>
+        <div id="settingList" align="center" onselectstart="return false">
+            <ul data-role="listview" data-inset="true">
+                <li id="optionText">Option</li>
+                <li onClick="OpenDeveloper()">
+                    <a data-role="button" id="developerList"><img src="img/developer.png" alt="開發人員簡介" style="margin-top:5%"></a>
+                </li>
+                <li onClick="OpenLocation()">
+                    <a data-role="button" id="locationList"><img src="img/location.png" alt="公司位址" style="margin-top:5%"></a>
+                </li>
+				<div data-role="fieldcontain"> 
+					<img src="img/changebackground.png" alt="變更背景" style="margin-top:50"><br>
+					<select name="selectmenu" id="backgroundSelect" style="background-color:#ABABAB" onchange="chageBackImg()">
+									<option value="Grass">Grass</option>
+									<option value="Sand">Sand</option>
+									<option value="Mountain">Mountain</option> 
+					</select>
+				</div>
+            </ul>
+            <button id="logoutButton" onClick="backToIndex()"><img src="img/logoutBTN.png" alt="" id="logoutImg"></button>
+            <button id="closeListBtn" onClick="disSetting(),visArror()" style="text-shadow:none;">Close</button>
+        </div>
+
+        <!--     Content     -->
+        <div data-role="content" align="center">
+            <!-- 寵物 -->
+            <label for="textarea" id="petName" style="color:white; text-shadow:none; font-size:24px">矇矇蛋</label>
+            <img src="img/egg.png" alt="蛋蛋" id="petImg">
+            <div>
+            	<img src="img/talking.png" alt="" id="talkImg" style="visibility:hidden">
+                <img src="" alt="" id="face" style="visibility:hidden">
+            </div>     
+            <!-- 開啟選單 -->
+            <a href="#menuPanel"><img src="img/arrorL.png" alt="選單" id="arrorLImg" onClick="disArror()"></a>
+            <!-- 經驗條 -->
+            <div class="circle">
+                <div class="pie_left">
+                    <div class="left"></div>
+                </div>
+                <div class="pie_right">
+                    <div class="right"></div>
+                </div>
+                <div class="mask"><span id="exp">30</span>%</div>
+            </div>
+            <!-- 滿足度 -->
+            <div id="progressBar">
+            	<img src="img/fork.png" alt="食物" id="smallForkImg">
+                <svg style="margin-top:5%" id="container"></svg><br>
+                <img src="img/water.png" alt="水分" id="smallWaterImg">
+                <svg style="margin-top:5%" id="container1"></svg><br>
+                <img src="img/heart.png" alt="心情" id="smallHeartImg">
+                <svg style="margin-top:5%" id="container2"></svg>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="javascript.js"></script>
+</body>
+
+</html>

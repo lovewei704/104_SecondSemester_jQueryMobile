@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>設定事項</title>
+    <link rel="stylesheet" href="themes/theme.min.css" />
+    <link rel="stylesheet" href="themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile.structure-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    <link href="design.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyAtllqMN-p67k5ait5ZJ9I8N1uRKxPTEDA"></script>
+</head>
+
+<script>
+
+	function backToMain(){
+		window.location.href = "main.html";
+	}
+	
+    $(function() {
+        $.ajax({
+            dataType: "json",
+            url: "http://192.192.155.100/login/login/WebService1.asmx/FindOneStore",
+            data: JSON.stringify(),
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            async: true,
+            success: function AjaxSuccess(data) {
+                var spotLat = data.d[0].spotLat;
+                var spotLong = data.d[0].spotLong;
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    center: new google.maps.LatLng(spotLat, spotLong),
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+                var myLatLng = {
+                    lat: 24.9896443,
+                    lng: 121.5462881
+                };
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: '矇矇寵工作室'
+                });
+
+                var infowindow = new google.maps.InfoWindow({
+                    content: "矇矇寵工作室"
+                });
+
+                google.maps.event.addListener(marker, 'click', function() {
+                    infowindow.open(map, marker);
+                });
+            },
+            error: function AjaxError(xhr) {
+                alert('連線有問題哦！');
+            }
+        });
+    });
+</script>
+
+<body>
+
+    <div data-role="page" id="developerPage">
+        <div data-role="header">
+            <h1>
+				<img src="img/gamedeveloper.png" alt="GAME-DEVELOPER" style="width:100%">
+				<a onClick="backToMain()" data-rel="external" data-role="button" data-icon="back" class="ui-btn-left" style="height:18px;"></a>
+			</h1>
+        </div>
+        <div data-role="content">
+            <div align="center">
+                <img src="img/title.png">
+            </div>
+            <div>
+                <table border="1" align="center">
+                    <tr>
+                        <td>
+                            <img src="img/A103223033.png" width="98"></td>
+                        <td>
+                            <p>鄭安庭</p>
+                            
+                        </td>
+                        <td>
+                            <p>A103223033</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="img/A103223013.png" width="98"></td>
+                        <td>
+                            <p>翁華威</p>
+                            
+                        </td>
+                        <td>
+                        	<p>A103223013</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="img/A103223010.png" width="98">
+                        </td>
+                        <td>
+                            <p>阮翎</p>
+                            
+                        </td>
+                        <td><p>A103223010</p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div data-role="page" data-add-back-btn="true" id="locationPage">
+        <div data-role="header">
+            <h1>
+				<img src="img/ourlocation.png" alt="OUR-LOCATION" style="width:100%">
+				<a onClick="backToMain()" data-rel="external" data-role="button" data-icon="back" class="ui-btn-left" style="height:18px;"></a>
+			</h1>
+        </div>
+        <div data-role="content">
+            <div id="map" style="position:absolute; width:90%; height:50%; border: 1px solid black;"></div>
+        </div>
+    </div>
+
+</body>
+
+</html>
